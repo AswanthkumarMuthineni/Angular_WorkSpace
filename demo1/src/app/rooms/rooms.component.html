@@ -1,0 +1,15 @@
+<h1>welcome to{{hotelname}}</h1>
+
+
+<h1 [hidden]="bool">
+Number of rooms:
+<div [innerText]="numberofrooms"></div>
+</h1>
+
+<button (click)="aa()">hh</button>
+<br>
+<br>
+<div *ngIf="room.avrooms>0">
+    Number of rooms:
+    <div [innerText]="numberofrooms"></div>
+</div>
