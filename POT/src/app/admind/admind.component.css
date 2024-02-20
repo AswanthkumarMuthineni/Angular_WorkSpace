@@ -1,7 +1,7 @@
 div {
     max-width: 600px;
     margin: auto;
-    padding: 20px;
+    padding: 10px;
   }
   
   form {
@@ -20,17 +20,8 @@ div {
     box-sizing: border-box;
   }
   
-  button {
-    background-color: #4caf50;
-    color: white;
-    padding: 10px;
-    border: none;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #45a049;
-  }
+
+ 
   
   .alert {
     padding: 15px;
@@ -38,3 +29,28 @@ div {
     color: white;
     margin-bottom: 15px;
   }
+  .body{
+    width: 200px;
+    height: 20%;
+    top: 40px;
+    left: 100%;
+  }
+
+  .employee-form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.form-row {
+  grid-column: span 2; /* Make this span across two columns */
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+}

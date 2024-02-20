@@ -1,113 +1,169 @@
 
-<div>
-  <h2>Contractor Form</h2>
+         <div class="dashboard"><i>Admin-DashBoard</i></div>
 
-  <form [formGroup]="contractorForm">
-    
-    <div>
-      <label for="employeeName">Employee Name:</label>
-      <input type="text" id="employeeName" formControlName="employeeName" />
-      <div *ngIf="contractorForm.get('employeeName').hasError('required') && contractorForm.get('employeeName').touched">
-        Employee Name is required.
-      </div>
+         <div><button class="addempbtn" class="addemp" (click) ="addEmployeeForm()">Add Employee</button></div>
+<div class="con">
+           <div class="card body">
+          <div class="bg-image hover-overlay" mdbRipple rippleColor="light">
+               <img src="assets\adminbg1.png" class="img-fluid" />
+                <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                </div>
+                 <div class="card-body">
+                 <h5 class="card-title name">Admin</h5>
+                <div>
+                <p>{{loginReq.emailId}}</p>
+        </div>
+
     </div>
-
-
-    <div formGroupName="contactReq">
-     
-      <div>
-        <label for="emailId">Email:</label>
-        <input type="email" id="emailId" formControlName="emailId" />
-        <div *ngIf="contractorForm.get('contactReq.emailId').hasError('required') && contractorForm.get('contactReq.emailId').touched">
-          Email is required.
-        </div>
-        <div *ngIf="contractorForm.get('contactReq.emailId').hasError('email') && contractorForm.get('contactReq.emailId').touched">
-          Please enter a valid email address.
-        </div>
-      </div>
-
-     
-      <div>
-        <label for="mobileNumber">Mobile Number:</label>
-        <input type="number" id="mobileNumber" formControlName="mobileNumber" />
-        <div *ngIf="contractorForm.get('contactReq.mobileNumber').hasError('required') && contractorForm.get('contactReq.mobileNumber').touched">
-          Mobile Number is required.
-        </div>
-      </div>
-    </div>
-
-    
-    <div formGroupName="addressReq">
-    
-      <div>
-        <label for="street">Street:</label>
-        <input type="text" id="street" formControlName="street" />
-        <div *ngIf="contractorForm.get('addressReq.street').hasError('required') && contractorForm.get('addressReq.street').touched">
-          Street is required.
-        </div>
-      </div>
-
-      <div>
-        <label for="city">City:</label>
-        <input type="text" id="city" formControlName="city" />
-        <div *ngIf="contractorForm.get('addressReq.city').hasError('required') && contractorForm.get('addressReq.city').touched">
-          City is required.
-        </div>
-      </div>
-
-      <div>
-        <label for="state">State:</label>
-        <input type="text" id="state" formControlName="state" />
-        <div *ngIf="contractorForm.get('addressReq.state').hasError('required') && contractorForm.get('addressReq.state').touched">
-          State is required.
-        </div>
-      </div>
-
-     
-      <div>
-        <label for="zipcode">Zipcode:</label>
-        <input type="number" id="zipcode" formControlName="zipcode" />
-        <div *ngIf="contractorForm.get('addressReq.zipcode').hasError('required') && contractorForm.get('addressReq.zipcode').touched">
-          Zipcode is required.
-        </div>
-      </div>
-    </div>
-
-   
-    <div>
-      <label for="password">Password:</label>
-      <input type="password" id="password" formControlName="password" />
-      <div *ngIf="contractorForm.get('password').hasError('required') && contractorForm.get('password').touched">
-        Password is required.
-      </div>
-    </div>
-
-    
-    <div formGroupName="loginReq">
-      
-      <div>
-        <label for="loginEmail">Login Email:</label>
-        <input type="email" id="loginEmail" formControlName="emailId" />
-        <div *ngIf="contractorForm.get('loginReq.emailId').hasError('required') && contractorForm.get('loginReq.emailId').touched">
-          Login Email is required.
-        </div>
-        <div *ngIf="contractorForm.get('loginReq.emailId').hasError('email') && contractorForm.get('loginReq.emailId').touched">
-          Please enter a valid login email address.
-        </div>
-      </div>
-
-      
-      <div>
-        <label for="loginPassword">Login Password:</label>
-        <input type="password" id="loginPassword" formControlName="password" />
-        <div *ngIf="contractorForm.get('loginReq.password').hasError('required') && contractorForm.get('loginReq.password').touched">
-          Login Password is required.
-        </div>
-      </div>
-    </div>
-    <div>
-      <button (click)="onSubmit()">Submit</button>
-    </div>
-  </form>
 </div>
+<div class="table-container  ">
+    <table class="table" >
+        <thead>
+            <tr >
+                <th>EMP:ID</th>
+                <th>NAME</th>
+                <th>Email</th>
+                <th>MobileNumber</th>
+                <th>action</th>
+
+            </tr>
+        </thead>
+        <tbody  >
+            <tr *ngFor="let emp of addemp ">
+                
+                <td>{{emp.employeeCode}}</td>
+                <td>{{emp.employeeName}}</td>
+                <td>{{emp. contact.emailId }}</td>
+                <td>{{emp. contact.mobileNumber }}</td> 
+                <td>
+                  <button type="button" class="btn btn-primary" (click)="editEmployee()">Edit</button>
+                  </td>
+                  <td>
+                  <button type="button" class="btn btn-danger" (click)="deleteEmployee()">Delete</button>
+              </td>
+            </tr>  
+        </tbody>
+    </table>
+</div>
+
+
+</div>
+
+<div>
+    <div>
+       
+      
+        <form [formGroup]="contractorForm" #ngform="ngForm" id="addEmployeeForm"  (ngSubmit)="onSubmit()"  *ngIf="showForm">
+          <h2>Contractor Form</h2>
+          <div>
+            <label for="employeeName">Employee Name:</label>
+            <input type="text" id="employeeName" formControlName="employeeName" />
+            <div *ngIf="contractorForm.get('employeeName').hasError('required') && contractorForm.get('employeeName').touched">
+              Employee Name is required.
+            </div>
+          </div>
+      
+      
+          <div formGroupName="contactReq">
+           
+            <div>
+              <label for="emailId">Email:</label>
+              <input type="email" id="emailId" formControlName="emailId" />
+              <div *ngIf="contractorForm.get('contactReq.emailId').hasError('required') && contractorForm.get('contactReq.emailId').touched">
+                Email is required.
+              </div>
+              <div *ngIf="contractorForm.get('contactReq.emailId').hasError('email') && contractorForm.get('contactReq.emailId').touched">
+                Please enter a valid email address.
+              </div>
+            </div>
+      
+           
+            <div>
+              <label for="mobileNumber">Mobile Number:</label>
+              <input type="number" id="mobileNumber" formControlName="mobileNumber" />
+              <div *ngIf="contractorForm.get('contactReq.mobileNumber').hasError('required') && contractorForm.get('contactReq.mobileNumber').touched">
+                Mobile Number is required.
+              </div>
+            </div>
+          </div>
+      
+          
+          <div formGroupName="addressReq">
+          
+            <div>
+              <label for="street">Street:</label>
+              <input type="text" id="street" formControlName="street" />
+              <div *ngIf="contractorForm.get('addressReq.street').hasError('required') && contractorForm.get('addressReq.street').touched">
+                Street is required.
+              </div>
+            </div>
+      
+            <div>
+              <label for="city">City:</label>
+              <input type="text" id="city" formControlName="city" />
+              <div *ngIf="contractorForm.get('addressReq.city').hasError('required') && contractorForm.get('addressReq.city').touched">
+                City is required.
+              </div>
+            </div>
+      
+            <div>
+              <label for="state">State:</label>
+              <input type="text" id="state" formControlName="state" />
+              <div *ngIf="contractorForm.get('addressReq.state').hasError('required') && contractorForm.get('addressReq.state').touched">
+                State is required.
+              </div>
+            </div>
+      
+           
+            <div>
+              <label for="zipcode">Zipcode:</label>
+              <input type="number" id="zipcode" formControlName="zipcode" />
+              <div *ngIf="contractorForm.get('addressReq.zipcode').hasError('required') && contractorForm.get('addressReq.zipcode').touched">
+                Zipcode is required.
+              </div>
+            </div>
+          </div>
+      
+         
+          <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" formControlName="password" />
+            <div *ngIf="contractorForm.get('password').hasError('required') && contractorForm.get('password').touched">
+              Password is required.
+            </div>
+          </div>
+      
+          
+          <div formGroupName="loginReq">
+            
+            <div>
+              <label for="loginEmail">Login Email:</label>
+              <input type="email" id="loginEmail" formControlName="emailId" />
+              <div *ngIf="contractorForm.get('loginReq.emailId').hasError('required') && contractorForm.get('loginReq.emailId').touched">
+                Login Email is required.
+              </div>
+              <div *ngIf="contractorForm.get('loginReq.emailId').hasError('email') && contractorForm.get('loginReq.emailId').touched">
+                Please enter a valid login email address.
+              </div>
+            </div>
+      
+            
+            <div>
+              <label for="loginPassword">Login Password:</label>
+              <input type="password" id="loginPassword" formControlName="password" />
+              <div *ngIf="contractorForm.get('loginReq.password').hasError('required') && contractorForm.get('loginReq.password').touched">
+                Login Password is required.
+              </div>
+            </div>
+          </div>
+          <div>
+            <button type="button" class="btn btn-success" (click)="onSubmit()" >Submit</button>
+          </div>
+        </form>
+      </div>
+</div>
+
+
+
+
 

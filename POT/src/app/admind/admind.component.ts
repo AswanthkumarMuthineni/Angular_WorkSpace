@@ -1,5 +1,6 @@
+
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AdminempserviceService } from '../adminempservice.service';
 
 @Component({
@@ -8,9 +9,14 @@ import { AdminempserviceService } from '../adminempservice.service';
   styleUrls: ['./admind.component.css']
 })
 export class AdmindComponent {
-  contractorForm;
+  
+  contractorForm: FormGroup;
+  
+  showForm;
+  loginReq: any = { emailId: 'aswanth@gmail.com', password: 'Aswanth@5' };
+  addemp: any[] = [];
 
-  constructor(private fb: FormBuilder, private empservice:AdminempserviceService) {
+  constructor(private fb: FormBuilder, private empservice: AdminempserviceService) {
     this.contractorForm = this.fb.group({
       employeeName: ['', Validators.required],
       contactReq: this.fb.group({
@@ -29,14 +35,11 @@ export class AdmindComponent {
         password: ['', Validators.required],
       }),
     });
-    console.log(this.contractorForm)
-    console.log(this.contactReq)
   }
-  contactReq(contactReq: any) {
-    throw new Error('Method not implemented.');
-  }
-  ngOnInit(){
-    this.contractorForm;
+
+  ngOnInit() {
+    this.loadallEmployees();
+    console.log(this.loginReq);
   }
 
   onSubmit() {
@@ -54,7 +57,49 @@ export class AdmindComponent {
       );
     }
   }
+
+  addEmployeeForm(data=null) {
+     this.showForm = true;
+  
+    if (data) {
+    this.contractorForm.patchValue({
+      employeeName: "",
+      contactReq: {
+        emailId: "",
+        mobileNumber: "",
+      },
+      addressReq: {
+        street: "",
+        city: "",
+        state: "",
+        zipcode: "",
+      },
+      password: "",
+      loginReq: {
+        emailId: "",
+        password: "",
+      },
+    });
+  }
+  }
+
+  editEmployee() { }
+
+  deleteEmployee() { }
+
+  loadallEmployees() {
+    this.empservice.getAllEmployeeDetails(this.loginReq).subscribe(
+      response => {
+        console.log('Data sent successfully:', response);
+        this.addemp = response;
+        console.log(this.addemp);
+      },
+      error => {
+        console.error('Error sending data:', error);
+      }
+    );
+  }
+
+
 }
-
-
 
