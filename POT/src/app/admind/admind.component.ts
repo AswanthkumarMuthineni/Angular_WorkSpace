@@ -83,7 +83,36 @@ export class AdmindComponent {
   }
   }
 
-  editEmployee() { }
+  // editEmployee(data =! null) {
+  //   this.showForm = false;
+  //  if(data) {
+  //   this.contractorForm.patchValue({
+  //     employeeName: "",
+  //     contactReq: {
+  //       emailId: "",
+  //       mobileNumber: "",
+  //     },
+  //     addressReq: {
+  //       street: "",
+  //       city: "",
+  //       state: "",
+  //       zipcode: "",
+  //     },
+  //     password: "",
+  //     loginReq: {
+  //       emailId: "",
+  //       password: "",
+  //     },
+  //   });
+  //  }
+  // }
+
+  editEmployee(id){
+    this.empservice.updateEmployeeDetails(id).subscribe(data=>{
+      console.log("update"+data);
+      this.addemp = data;
+    })
+  }
 
   deleteEmployee() { }
 
