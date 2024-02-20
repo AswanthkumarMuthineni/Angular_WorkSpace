@@ -57,20 +57,4 @@ export class AdmindComponent {
 }
 
 
-// if (this.contractorForm.valid) {
-//   const formData = this.contractorForm.value;
-//   const jsonData = JSON.stringify(formData, null, 2); 
 
-  
-//   console.log('Registration Data:', jsonData);
-
-  
-//   this.adminreg.registerContractor(formData)
-//     .subscribe(response => {
-//       console.log('Registration successful', response);
-//       alert('Registration successful');
-//       this.router.navigate(['/login']);
-//     }, error => {
-//       console.error('Error in registration', error);
-//       alert('Error in registration');
-//     });
