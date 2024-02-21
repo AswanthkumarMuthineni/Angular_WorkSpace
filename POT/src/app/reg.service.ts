@@ -8,6 +8,7 @@ import { Observable, map } from 'rxjs';
 })
 export class RegService {
   private apiUrl = 'http://localhost:8080/contractor/registration';
+  
 
   constructor(private http: HttpClient) { }
 
