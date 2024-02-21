@@ -9,18 +9,25 @@ import { AdminempserviceService } from '../adminempservice.service';
   styleUrls: ['./admind.component.css']
 })
 export class AdmindComponent {
+open: boolean = false;
+
   
   contractorForm: FormGroup;
   
   showForm;
   loginReq: any = { emailId: 'aswanth@gmail.com', password: 'Aswanth@5' };
   addemp: any[] = [];
+  deleteObject: any;
+  updateobj:any
 
+
+  
+  
   constructor(private fb: FormBuilder, private empservice: AdminempserviceService) {
     this.contractorForm = this.fb.group({
       employeeName: ['', Validators.required],
       contactReq: this.fb.group({
-        emailId: new FormControl('', [Validators.required, Validators.email]),
+        emailId: ['',[Validators.required,Validators.email]],
         mobileNumber: [null, Validators.required],
       }),
       addressReq: this.fb.group({
@@ -80,55 +87,104 @@ export class AdmindComponent {
         password: "",
       },
     });
+    
   }
+  
+
+}
+ updateForm:any;
+
+
+previousDetails:any;
+
+ //update employee
+  editEmployee(emp){
+    console.log(emp)
+    this.previousDetails=emp;
+    console.log(this.previousDetails)
+this.open=true;
+ 
+  }
+  sendUpdatedDate() {
+    this.empservice.updateEmployeeDetails(this.previousDetails).subscribe((data)=>{
+   console.log(data);
+    });
   }
 
-  // editEmployee(data =! null) {
-  //   this.showForm = false;
-  //  if(data) {
-  //   this.contractorForm.patchValue({
-  //     employeeName: "",
-  //     contactReq: {
-  //       emailId: "",
-  //       mobileNumber: "",
-  //     },
-  //     addressReq: {
-  //       street: "",
-  //       city: "",
-  //       state: "",
-  //       zipcode: "",
-  //     },
-  //     password: "",
-  //     loginReq: {
-  //       emailId: "",
-  //       password: "",
-  //     },
-  //   });
-  //  }
-  // }
 
-  editEmployee(id){
-    this.empservice.updateEmployeeDetails(id).subscribe(data=>{
+
+
+
+  update(emp){
+    this.EditFormData(emp)
+    this.empservice.updateEmployeeDetails(this.updateobj).subscribe((data)=>{
       console.log("update"+data);
-      this.addemp = data;
+      this.loadallEmployees();
     })
   }
 
-  deleteEmployee() { }
-
-  loadallEmployees() {
-    this.empservice.getAllEmployeeDetails(this.loginReq).subscribe(
-      response => {
-        console.log('Data sent successfully:', response);
-        this.addemp = response;
-        console.log(this.addemp);
+  EditFormData(emp) {
+    this.updateForm = true;
+    this.contractorForm.patchValue({
+      employeeName: emp.employeeName,
+      contactReq: {
+        emailId: emp.contact.emailId,
+        mobileNumber: emp.contact.mobileNumber,
       },
-      error => {
-        console.error('Error sending data:', error);
+      addressReq: {
+        street: emp.addressResponse.street,
+        city: emp.addressResponse.city,
+        state: emp.addressResponse.state,
+        zipcode: emp.addressResponse.zipcode,
       }
-    );
+   
+    });
+    
+   
   }
+  
 
 
+  //deleteEmployee
+deleteMsg:string="";
+isDeleted:boolean = false;
+  deleteEmployee(emp:any) { 
+     this.empservice.deleteEmployeeDetails(emp).subscribe(
+       (data) => {
+          this.isDeleted = true;
+          this.deleteMsg = data;
+          setTimeout(() => {
+            this.isDeleted = false;
+            
+          }, 5000);
+       console.log('Employee deleted successfully:', data);
+        this.loadallEmployees();
+       },
+      (error) => {
+        console.error('Error deleting employee:', error);
+      }
+      );
+    }
+
+
+    //load all employees
+      loadallEmployees() {
+        this.empservice.getAllEmployeeDetails(this.loginReq).subscribe(
+          response => {
+            console.log('Data sent successfully:', response);
+            this.addemp = response;
+            console.log(this.addemp);
+          },
+          error => {
+            console.error('Error sending data:', error);
+          }
+        );
+      }
 }
+
+
+
+
+
+
 

@@ -10,7 +10,8 @@ export class AdminempserviceService {
   
   private apiUrl = 'http://localhost:8080/employee/register'; 
   private apiurl1='http://localhost:8080/contractor/AllEmployeeDetails'
-  private apiurl2='http://localhost:8080/contractor/updateEmployeeDetails'
+  private apiurl2='http://localhost:8080/contractor/updateEmployeeDetails';
+  private apiurl3='http://localhost:8080/contractor/deleteEmployeeRecord';
 
   constructor(private http: HttpClient) { }
 
@@ -23,9 +24,13 @@ export class AdminempserviceService {
     return this.http.patch(this.apiurl1,loginReq);
   }
 
-  updateEmployeeDetails(employeeCode): Observable<any> {
-    
-    return this.http.put(this.apiurl2,employeeCode,{responseType:'text'});
+  updateEmployeeDetails(employee): Observable<any> {
+    console.log( "update"+employee);
+    return this.http.put(this.apiurl2,employee,{responseType:'text'});
+  }
+   deleteEmployeeDetails(deleteObject:any): Observable<any> {
+    console.log(deleteObject)
+    return this.http.post(this.apiurl3,deleteObject,{responseType:'text'});
   }
 
 

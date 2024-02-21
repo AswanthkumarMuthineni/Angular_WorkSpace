@@ -10,6 +10,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule,FormsModule } from '@angular/forms';
 import { AdminregistrationComponent } from './adminregistration/adminregistration.component';
 import { AdmindComponent } from './admind/admind.component';
+import { AdminlogComponent } from './adminlog/adminlog.component';
+
 
 
 
@@ -22,6 +24,8 @@ import { AdmindComponent } from './admind/admind.component';
     HeaderComponent,
     AdminregistrationComponent,
     AdmindComponent,
+    AdminlogComponent,
+   
   
    
   ],
